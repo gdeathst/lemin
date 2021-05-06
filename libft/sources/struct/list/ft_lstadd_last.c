@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:59:41 by anonymous         #+#    #+#             */
-/*   Updated: 2021/01/28 21:12:29 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:06:10 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@
 
 #include "libft.h"
 
-void		ft_lstadd_last(t_list **alst, t_list *node)
+void	ft_lstadd_last(t_list **alst, t_list *node)
 {
-	t_list	*cur;
+	t_list	*cur_position;
 
-	if (alst != NULL && node != NULL)
+	if (*alst == NULL && node == NULL)
+		return ;
+	if (*alst == NULL)
+		*alst = node;
+	else
 	{
-		if (*alst == NULL)
-			(*alst) = node;
-		else
-		{
-			cur = *alst;
-			while (cur->next != NULL)
-				cur = cur->next;
-			cur->next = node;
-		}
+		cur_position = *alst;
+		while (cur_position->next != NULL)
+			cur_position = cur_position->next;
+		cur_position->next = node;
 	}
 }

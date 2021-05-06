@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 23:07:24 by unicolle          #+#    #+#             */
-/*   Updated: 2021/03/28 23:37:56 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/04 06:04:13 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include "get_next_line.h"
-# include "vec_ft.h"
-# include "utils.h"
 # include "ft_printf.h"
 
 # define BADCH (int)'?'
@@ -94,7 +92,7 @@ char				*ft_strncpy(char *dst, const char *src, size_t len);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strnew(size_t size);
 char				*ft_strnstr(const char *haystack,
-const char *needle, size_t len);
+						const char *needle, size_t len);
 char				*ft_strrchr(const char *s, int c);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_strstr(const char *haystack, const char *needle);
@@ -103,7 +101,7 @@ char				*ft_strtrim(char const *s);
 /*
 ** BONUS
 */
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	size_t			content_size;
@@ -141,8 +139,6 @@ int					ft_isupper(int c);
 */
 void				ft_swap_mem(void *a, void *b, size_t s);
 void				ft_del(void *ptr, size_t size);
-void				*ft_ememalloc(size_t size, int error_status,
-char *error_message, void (*exit_func)(int, char *));
 /*
 ** parse_parameters
 */
@@ -164,10 +160,43 @@ char				*ft_strpbrk(const char *s1, const char *s2);
 size_t				ft_strcounttokens(const char *s1, const char *s2);
 size_t				ft_strcountcharspecifiedinset(char *str, char *charset);
 /*
-** lst
+** STRUCT
+*/
+
+/*
+** list
 */
 int					ft_lstdepth(t_list *lst);
 void				ft_lstadd_last(t_list **alst, t_list *node);
 void				ft_del(void *ptr, size_t size);
+void				ft_lstsortinsertion(t_list **head_ref,
+						int comp(t_list *, t_list *));
+/*
+** queue
+*/
+typedef struct s_item		t_item;
+struct s_item
+{
+	t_item	*prev;
+	t_item	*next;
+	void	*data;
+};
+t_item				*ft_item_create(void);
+void				ft_item_destroy(t_item **aself);
+typedef struct s_queue		t_queue;
+struct s_queue
+{
+	t_item	*head;
+	t_item	*tail;
+	size_t	size;
+};
+t_queue				*ft_queue_create(void);
+void				ft_queue_destroy(t_queue **aself);
+void				ft_queue_clean(t_queue *self);
+void				*ft_queue_pop_front(t_queue *self);
+void				*ft_queue_pop_back(t_queue *self);
+void				ft_queue_push_front(t_queue *self, void *data);
+void				ft_queue_push_back(t_queue *self, void *data);
+ssize_t				ft_queue_is_empty(t_queue *queue);
 
 #endif

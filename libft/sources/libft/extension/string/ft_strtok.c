@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 17:00:09 by anonymous         #+#    #+#             */
-/*   Updated: 2021/01/30 20:18:41 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:47:29 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@
 
 #include "libft.h"
 
-char				*ft_strtok(char *s, const char *delim)
+char	*ft_strtok(char *s, const char *delim)
 {
 	char			*tok;
 	static char		*last;
 
-	if (s == NULL && (s = last) == NULL)
+	if (s == NULL && last == NULL)
 		return (NULL);
+	if (s == NULL)
+		s = last;
 	s += ft_strspn(s, delim);
 	tok = s;
 	if (*tok == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 02:19:03 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/18 01:34:52 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:27:13 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,16 @@
 
 #include "libft.h"
 
-char		*ft_strnew(size_t size)
+char	*ft_strnew(size_t size)
 {
-	char			*str;
-	size_t			i;
+	size_t	i;
+	char	*string;
 
+	string = ft_memalloc(size + 1);
+	if (string == NULL)
+		return (NULL);
 	i = 0;
-	if (size + 1 == 0)
-		return (NULL);
-	str = (char *)malloc(sizeof(char) * (size + 1));
-	if (str == NULL)
-		return (NULL);
-	while (i < size + 1)
-	{
-		str[i] = '\0';
-		i++;
-	}
-	return (str);
+	while (i < size)
+		string[i++] = '\0';
+	return (string);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 00:32:20 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/20 21:50:19 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:19:29 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while (i < n)
 	{
 		if (mem[i] == symbol)
-			return (void*)(mem + i);
+			return ((void *)(mem + i));
 		i++;
 	}
 	return (NULL);

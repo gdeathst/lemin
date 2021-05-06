@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 19:39:47 by anonimnus         #+#    #+#             */
-/*   Updated: 2021/01/28 20:26:49 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:37:05 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,18 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list	*list;
 
-	list = (t_list*)malloc(sizeof(t_list));
-	if (list != NULL)
+	list = (t_list *)ft_memalloc(sizeof(t_list));
+	if (list == NULL)
+		return (NULL);
+	if (content == NULL || content_size == 0)
+		return (list);
+	list->content = (t_list *)malloc(content_size);
+	if (list->content == NULL)
 	{
-		list->next = NULL;
-		if (content_size > 0)
-		{
-			list->content = ft_memalloc(content_size);
-			if (list->content != NULL)
-			{
-				ft_memmove((*list).content, content, content_size);
-				list->content_size = content_size;
-				return (list);
-			}
-		}
-		else
-		{
-			list->content = NULL;
-			list->content_size = 0;
-			return (list);
-		}
-		free(list);
+		ft_memdel((void **)(&list));
+		return (NULL);
 	}
-	return (NULL);
+	ft_memmove(list->content, content, content_size);
+	list->content_size = content_size;
+	return (list);
 }

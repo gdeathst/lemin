@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 23:16:23 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/22 22:08:07 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:25:03 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strdup(const char *src)
 	size_t		i;
 
 	length = ft_strlen(src) + 1;
-	str = (char*)malloc(sizeof(char) * length);
+	str = (char *)malloc(sizeof(char) * length);
 	if (str == NULL)
 		return (NULL);
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isblank.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 06:23:18 by anonimnus         #+#    #+#             */
-/*   Updated: 2020/10/20 21:48:59 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:41:06 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "libft.h"
 
-int			ft_isblank(int c)
+int	ft_isblank(int c)
 {
 	if (c == '\t' || c == ' ')
 		return (1);

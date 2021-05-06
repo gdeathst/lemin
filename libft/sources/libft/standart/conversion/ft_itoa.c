@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 08:09:38 by anonimnus         #+#    #+#             */
-/*   Updated: 2020/10/20 21:12:03 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:15:25 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "libft.h"
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	return (ft_itoa_base(n, 10));
 }

@@ -6,11 +6,11 @@
 #    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/24 00:51:31 by anonimnus         #+#    #+#              #
-#    Updated: 2021/03/15 02:53:07 by anonymous        ###   ########.fr        #
+#    Updated: 2021/05/06 07:31:07 by anonymous        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lemin 
+NAME = lem-in 
 CC = gcc
 #FLAGS = -Wall -Werror -Wextra
 
@@ -30,16 +30,22 @@ PROJECT_HEADERS = $(addprefix $(PATH_TO_PROJECT_HEADERS), $(LIST_PROJECT_HEADERS
 INCLUDE_PROJECT_HEADERS = -I $(PATH_TO_PROJECT_HEADERS)
 #SOURCES PROJECT
 LIST_PROJECT_SOURCES = 	main.c\
-                       	terminate.c\
-						draw_map.c\
-						draw_vertices.c\
-						draw_graph.c\
-						draw_edges.c\
-						graph_preparation.c\
-						build_routes.c\
+						legend.c\
+						get_map_description.c\
+						get_map.c\
+						get_number_of_ants.c\
+						get_rooms.c\
+						get_links.c\
+						modify_map.c\
+						route_search_optimization.c\
 						bfs.c\
-						queue.c\
-						item.c
+						edmonds_karp.c\
+						build_paths.c\
+						optimize_choice_of_path.c\
+						show_description.c\
+						show_paths.c\
+						destroy.c\
+						utils.c
 
 PATH_TO_PROJECT_SOURCES = sources/
 PROJECT_SOURCES = $(addprefix $(PATH_TO_PROJECT_SOURCES), $(LIST_PROJECT_SOURCES))

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 18:30:04 by anonimnus         #+#    #+#             */
-/*   Updated: 2021/03/29 00:06:55 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/06 07:30:54 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,89 +17,109 @@
 
 # define ERROR "ERROR\n"
 
-enum	e_id
+typedef enum e_legend
 {
-	ORIGINAL,
-	COPY
+	NUMBER_OF_ANTS,
+	COPY,
+	ROOM,
+	START,
+	END,
+	LINK,
+	NOT_VALID,
+	DESCRIPTION
+}					t_legend;
+
+typedef struct s_bfs	t_bfs;
+typedef struct s_coord	t_coord;
+typedef struct s_room	t_room;
+typedef struct s_path	t_path;
+typedef struct s_link	t_link;
+typedef struct s_map	t_map;
+
+struct s_bfs
+{
+	int		is_visited;
+	t_room	*prev;
+	t_link	*link;
 };
 
-typedef struct			s_vertex
+struct s_coord
 {
-	int					x;
-	int					y;
-	char				*name;
-	struct s_vertex		*next;
-	int					visited;
-	enum e_id			identifier;
-}						t_vertex;
+	int	x;
+	int	y;
+};
 
-typedef struct			s_edge
+struct s_path
 {
-	t_vertex			*start;
-	t_vertex			*end;
-	int					starttoend;
-	int					endtostart;
-	struct s_edge		*next;
-	struct s_edge		*prev;
-}						t_edge;
+	int		number_of_ant;
+	int		length_of_way;
+	t_room	*next;
+};
 
-typedef struct			s_graph
+struct s_room
 {
-	t_vertex			*start;
-	t_vertex			*end;
-	t_edge				*edges;
-	t_vertex			*vertices;
-}						t_graph;
+	char		*name;
+	int			is_copy;
+	t_coord		coord;
+	t_link		**links;
+	t_path		path;
+	t_bfs		bfs;
+};
 
-typedef struct			s_map
+struct s_link
 {
-	t_graph				*graph;
-	int					amount_ants;
-}						t_map;
+	t_room		*to;
+	t_room		*from;
+	int			from_to;
+	int			to_from;
+	int			weigth;
+};
 
-typedef struct			s_item
+struct s_map
 {
-	t_edge				*edge;
-	t_vertex			*parent;
-	t_vertex			*current;
-	struct s_item		*next;
-	struct s_item		*prev;
-}						t_item;
-
-typedef struct			s_queue
-{
-	int					n;
-	t_item				*root;
-	t_item				*first_node;
-	t_item				*last_node;
-}						t_queue;
+	int			number_of_ants;
+	t_list		*start;
+	t_list		*end;
+	t_list		*rooms;
+	t_list		*links;
+};
 
 /*
-** MAIN FUNCTION FOR PROJECT
+** MAIN FUNCTION
 */
-void					terminate(char *error_message);
-t_map					*draw_map(void);
-t_graph					*draw_graph(void);
-char					*draw_vertices(t_graph *graph, char *line);
-void					draw_edges(t_graph *graph, char *line);
-t_graph					*graph_preparation(t_graph *graph);
-int						build_routes(t_graph *graph);
+t_list		*get_map_description(void);
+t_map		*get_map(t_list	*description);
+int			get_number_of_ants(t_list *description);
+t_list		*get_rooms(t_list *description);
+t_list		*get_links(t_list *description, t_list *rooms, t_map *map);
+void		modify_map(t_map *map);
+void		route_search_optimization(t_map *map);
+int			bfs(t_room *start, t_room *goal, t_list *rooms);
+void		edmonds_karp(t_room *start, t_room *end, t_list *rooms);
+void		build_paths(t_room *start, t_room *end);
+void		optimize_choice_of_path(t_room *start);
+void		show_description(t_list *description);
+void		show_paths(t_map *map);
 /*
-**	UTILS: AlGORITHM
+**	LEGEND
 */
-t_queue					*bfs(t_graph *graph);
+int			is_comment(char *line);
+int			is_room(char *line);
+int			is_link(char *line);
+int			is_start(char *line);
+int			is_end(char *line);
 /*
-**	UTILS: QUEUE MANIPULATION
+**	FREE_MEMMORY
 */
-t_queue					*init_queue(void);
-int						is_empty(t_queue *queue);
-void					enqueue(t_queue *queue, t_item *item);
-t_item					*dequeue(t_queue *queue);
-void					destroyqueue(t_queue *queue);
+void		destroy_map(t_map *map);
+void		destoy_description(t_list *description);
 /*
-**	UTILS: ITEM MANIPULATION
+**	UTILS
 */
-t_item					*finditem(t_queue *queue, t_vertex *vertex);
-t_item					*createitem(t_edge *edge, t_vertex *par, t_vertex *cur);
+void		terminate(char *error_message);
+t_list		*wrap(void	*content, int type);
+t_list		*find_room(t_list *rooms, char *name, int type);
+t_room		*get_next_room(t_link *link, t_room *from);
+void		*ememalloc(size_t size);
 
 #endif

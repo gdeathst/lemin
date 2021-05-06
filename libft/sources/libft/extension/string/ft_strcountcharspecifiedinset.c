@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 06:21:17 by anonymous         #+#    #+#             */
-/*   Updated: 2021/02/14 13:29:27 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:44:50 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "libft.h"
 
-size_t		ft_strcountcharspecifiedinset(char *str, char *charset)
+size_t	ft_strcountcharspecifiedinset(char *str, char *charset)
 {
 	int		len;
 	char	*span;

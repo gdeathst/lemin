@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 23:20:03 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/22 22:00:34 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:33:26 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
 
-	if ((str = ft_strnew(len)) && s)
+	str = ft_strnew(len);
+	if (str && s)
 		ft_strncpy(str, s + start, len);
-	return (char*)(str);
+	return ((char *)(str));
 }

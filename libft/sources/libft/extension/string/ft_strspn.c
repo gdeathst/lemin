@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 10:42:56 by anonymous         #+#    #+#             */
-/*   Updated: 2021/01/30 14:19:51 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:53:02 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #include "libft.h"
 
-size_t		ft_strspn(const char *s, register const char *charset)
+size_t	ft_strspn(const char *s, register const char *charset)
 {
 	register const char		*ptr;
 	register const char		*span_ptr;
@@ -28,17 +28,21 @@ size_t		ft_strspn(const char *s, register const char *charset)
 	register char			character;
 
 	ptr = s;
-	while ((character = *ptr++) != 0)
+	character = *ptr++;
+	while (character != 0)
 	{
 		span_ptr = charset;
-		while ((scan_character = *span_ptr) != 0)
+		scan_character = *span_ptr;
+		while (scan_character != 0)
 		{
 			if (character == scan_character)
 				break ;
 			span_ptr++;
+			scan_character = *span_ptr;
 		}
 		if (character != scan_character)
 			break ;
+		character = *ptr++;
 	}
 	return (ptr - 1 - s);
 }

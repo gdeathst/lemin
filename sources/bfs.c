@@ -5,54 +5,79 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 19:43:34 by gdeathst          #+#    #+#             */
-/*   Updated: 2021/03/28 23:28:53 by anonymous        ###   ########.fr       */
+/*   Created: 2021/05/04 03:13:39 by anonymous         #+#    #+#             */
+/*   Updated: 2021/05/05 09:56:09 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-inline static void	reset_list_visited_nodes(t_vertex *vertex)
+static void	reset_status_bfs(t_list *rooms)
 {
-	while (vertex)
+	t_room	*room;
+
+	while (rooms)
 	{
-		vertex->visited = false;
-		vertex = vertex->next;
+		room = rooms->content;
+		room->bfs.is_visited = 0;
+		room->bfs.prev = NULL;
+		room->bfs.link = NULL;
+		rooms = rooms->next;
 	}
 }
 
-inline static void	enqueue_children(t_queue *queue, t_edge *edges,
-t_item *item)
+static void	push(t_room *rm, t_room *prev, t_link *link, t_queue *queue)
 {
-	while (edges)
+	ft_queue_push_back(queue, rm);
+	rm->bfs.link = link;
+	rm->bfs.is_visited = 1;
+	rm->bfs.prev = prev;
+}
+
+static void	*pop(t_queue *queue)
+{
+	void	*data;
+
+	data = ft_queue_pop_front(queue);
+	return (data);
+}
+
+static void	expand_free_heirs(t_queue *queue, t_room *rm)
+{
+	int		i;
+	t_link	*link;
+	t_link	**links;
+
+	i = 0;
+	links = rm->links;
+	while (links[i])
 	{
-		if (edges->start == item->current && edges->end->visited == false &&
-		edges->starttoend < 1)
-			enqueue(queue, createitem(edges, edges->start, edges->end));
-		if (edges->end == item->current && edges->start->visited == false &
-		edges->endtostart < 1)
-			enqueue(queue, createitem(edges, edges->end, edges->start));
-		edges = edges->next;
+		link = links[i];
+		if (link->to_from != 1 && link->from->bfs.is_visited == 0)
+			push(link->from, rm, link, queue);
+		if (link->from_to != 1 && link->to->bfs.is_visited == 0)
+			push(link->to, rm, link, queue);
+		i++;
 	}
 }
 
-t_queue				*bfs(t_graph *graph)
+int	bfs(t_room *start, t_room *goal, t_list *rooms)
 {
-	t_queue			*queue;
-	t_item			*curritem;
+	int		ret;
+	t_queue	*queue;
+	t_room	*rm;
 
-	queue = init_queue();
-	reset_list_visited_nodes(graph->vertices);
-	enqueue(queue, (curritem = createitem(NULL, NULL, graph->start)));
-	enqueue_children(queue, graph->edges, curritem);
-	while (is_empty(queue) == false)
+	ret = 0;
+	reset_status_bfs(rooms);
+	queue = ft_queue_create();
+	push(start, NULL, NULL, queue);
+	while (!ft_queue_is_empty(queue) && ret == 0)
 	{
-		curritem = dequeue(queue);
-		if (curritem->current == graph->end)
-			return (queue);
-		curritem->current->visited = true;
-		enqueue_children(queue, graph->edges, curritem);
+		rm = pop(queue);
+		if (rm == goal)
+			ret = 1;
+		expand_free_heirs(queue, rm);
 	}
-	destroyqueue(queue);
-	return (NULL);
+	ft_queue_destroy(&queue);
+	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 23:59:17 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/20 21:12:43 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:34:04 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*ft_strtrim(char const *s)
 		i = ft_strlen(s);
 		while (s[i] == '\n' || ft_isblank(s[i]) || s[i] == '\0')
 			i--;
-		if ((str = ft_strsub(s, 0, i + 1)) != NULL)
+		str = ft_strsub(s, 0, i + 1);
+		if (str != NULL)
 			return (str);
 		return (ft_strnew(0));
 	}

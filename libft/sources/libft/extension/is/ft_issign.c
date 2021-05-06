@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_issign.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 21:22:44 by anonimnus         #+#    #+#             */
-/*   Updated: 2020/10/17 23:14:33 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:42:37 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "libft.h"
 
-int			ft_issign(int c)
+int	ft_issign(int c)
 {
 	if (c == '-' || c == '+')
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 18:43:11 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/22 21:59:44 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:24:14 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,13 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	return ((char*)ft_memchr((const void*)s, c, ft_strlen(s) + 1));
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	if (c == '\0')
+		return ((char *)s);
+	return (0);
 }

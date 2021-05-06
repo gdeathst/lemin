@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 02:30:32 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/20 21:11:50 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:40:50 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 #include "libft.h"
 
-static void		fill_the_line(char *str, int nbr, int base)
+static void	fill_the_line(char *str, int nbr, int base)
 {
-	char		*array;
+	char	*array;
 
 	array = "0123456789abcdef";
 	*str = array[ft_abs(nbr % base)];
@@ -31,7 +31,7 @@ static void		fill_the_line(char *str, int nbr, int base)
 	fill_the_line(str + 1, nbr / base, base);
 }
 
-char			*ft_itoa_base(int nbr, int base)
+char	*ft_itoa_base(int nbr, int base)
 {
 	char		*result;
 	int			length_int;

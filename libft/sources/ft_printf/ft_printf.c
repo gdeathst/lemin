@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgalyeon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/09 17:08:32 by rgalyeon          #+#    #+#             */
-/*   Updated: 2020/01/20 19:39:03 by rgalyeon         ###   ########.fr       */
+/*   Created: 2021/04/29 00:03:45 by anonymous         #+#    #+#             */
+/*   Updated: 2021/04/29 00:15:56 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	args;
-	int		done;
+	t_parse		self;
 
-	va_start(args, format);
-	done = ft_vfprintf(STDOUT_FILENO, format, args);
-	va_end(args);
-	return (done);
+	ft_bzero(&self, sizeof(t_parse));
+	if (format)
+	{
+		self.fd = 1;
+		self.format = format;
+		va_start(self.ap, format);
+		ft_pf_parse_while(&self);
+		va_end(self.ap);
+	}
+	return (self.result);
 }

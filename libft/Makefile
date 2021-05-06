@@ -6,7 +6,7 @@
 #    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 21:33:58 by unicolle          #+#    #+#              #
-#    Updated: 2021/02/10 10:18:07 by anonymous        ###   ########.fr        #
+#    Updated: 2021/05/04 17:53:39 by anonymous        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 FLAGS = -O -Wall -W -Werror -Wextra
 INCLUDES_DIRECTORY = ./includes/
 INCLUDE_HEADERS = -I ./$(INCLUDES_DIRECTORY)
-INCLUDES_LIST = ft_printf.h get_next_line.h libft.h utils.h vec_ft.h
+INCLUDES_LIST = ft_printf.h get_next_line.h libft.h
 INCLUDES = $(addprefix $(INCLUDES_DIRECTORY), $(INCLUDES_LIST))
 SOURCES_DIRECTORY = ./sources/
 #LIBFT
@@ -38,7 +38,7 @@ SOURCES_LIST_LIBFT_BONUS = ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c f
 SOURCES_LIST_LIBFT_EXTENSION_CONVERSION = ft_abs.c ft_intlength.c ft_itoa_base.c ft_bubble_sort.c
 SOURCES_LIST_LIBFT_EXTENSION_IS = ft_isblank.c ft_isint.c ft_islower.c ft_isprint.c ft_issign.c ft_isspace.c \
 ft_isupper.c
-SOURCES_LIST_LIBFT_EXTENSION_MEMMORY = ft_swap_mem.c ft_del.c ft_ememalloc.c
+SOURCES_LIST_LIBFT_EXTENSION_MEMMORY = ft_swap_mem.c ft_del.c
 SOURCES_LIST_LIBFT_EXTENSION_PARAMETERS = ft_getprogname.c
 SOURCES_LIST_LIBFT_EXTENSION_PUT = ft_putstr_exit_fd.c
 SOURCES_LIST_LIBFT_EXTENSION_STRING = ft_strrev.c ft_strtoupper.c ft_strtolower.c ft_strtok.c ft_strcspn.c ft_strspn.c ft_strpbrk.c \
@@ -81,34 +81,38 @@ SOURCES_GET_NEXT_LINE = $(addprefix $(SOURCES_DIRECTORY_GET_NEXT_LINE), $(SOURCE
 #PRINTF
 SOURCES_DIRECTORY_PRINTF = ft_printf/
 
-SUBDIRECTORY_PRINTF_PROCESSING_TYPES = processing_types/
-SUBDIRECTORY_PRINTF_UTILS = utils/
+SUBDIRECTORY_PRINTF_OUTPUT = output/
+SUBDIRECTORY_PRINTF_PARSE = parse/
+SUBDIRECTORY_PRINTF_PRINT = print/
 
-SOURCES_LIST_PRINTF_PROCESSING_TYPES = processing_b.c processing_c.c processing_di.c processing_f.c \
-processing_n.c processing_p.c processing_s.c processing_u.c processing_x.c
-SOURCES_LIST_PRINTF_UTILS = bignum_math.c bignum.c float_format.c ft_pf_itoa_base.c ftoa.c rounding.c
-SOURCES_LIST_PRINTF_MAIN_DIRECTORY = ft_printf.c ft_vfprintf.c parse_placeholder.c utils.c \
-processing_types.c
+SOURCES_LIST_PRINTF_OUTPUT = ft_pf_output_flush.c ft_pf_output_putchar.c ft_pf_output_putnstr.c ft_pf_output_putstr.c  ft_pf_output_repeat.c
+SOURCES_LIST_PRINTF_PARSE = ft_pf_parse_color.c ft_pf_parse_format.c ft_pf_parse_next.c ft_pf_parse_precision.c ft_pf_parse_type.c ft_pf_parse_width.c\
+ft_pf_parse_flags.c ft_pf_parse_length.c ft_pf_parse_number.c ft_pf_parse_print.c ft_pf_parse_while.c
+SOURCES_LIST_PRINTF_PRINT = ft_pf_print_binary.c ft_pf_print_date.c ft_pf_print_escape.c ft_pf_print_octal.c ft_pf_print_string.c ft_pf_print_char.c\
+ft_pf_print_double.c ft_pf_print_hex.c ft_pf_print_signed.c ft_pf_print_unsigned.c ft_pf_printf_utils.c
+SOURCES_LIST_PRINTF_MAIN_DIRECTORY = ft_printf.c ft_printf_fd.c ft_snprintf.c
 
-SOURCES_PRINTF_PROCESSING_TYPES = $(addprefix $(SUBDIRECTORY_PRINTF_PROCESSING_TYPES), $(SOURCES_LIST_PRINTF_PROCESSING_TYPES))
-SOURCES_PRINTF_UTILS = $(addprefix $(SUBDIRECTORY_PRINTF_UTILS), $(SOURCES_LIST_PRINTF_UTILS))
+SOURCES_PRINTF_OUTPUT = $(addprefix $(SUBDIRECTORY_PRINTF_OUTPUT), $(SOURCES_LIST_PRINTF_OUTPUT))
+SOURCES_PRINTF_PARSE = $(addprefix $(SUBDIRECTORY_PRINTF_PARSE), $(SOURCES_LIST_PRINTF_PARSE))
+SOURCES_PRINTF_PRINT = $(addprefix $(SUBDIRECTORY_PRINTF_PRINT), $(SOURCES_LIST_PRINTF_PRINT))
 SOURCES_PRINTF_MAIN = $(SOURCES_LIST_PRINTF_MAIN_DIRECTORY)
 
-SOURCES_PRINTF = $(addprefix $(SOURCES_DIRECTORY_PRINTF), $(SOURCES_PRINTF_PROCESSING_TYPES) $(SOURCES_PRINTF_UTILS) $(SOURCES_PRINTF_MAIN))
+SOURCES_PRINTF = $(addprefix $(SOURCES_DIRECTORY_PRINTF), $(SOURCES_PRINTF_OUTPUT) $(SOURCES_PRINTF_PARSE) $(SOURCES_PRINTF_PRINT) $(SOURCES_PRINTF_MAIN))
 
 #STRUCT
 SOURCES_DIRECTORY_STRUCT = struct/
 
-SUBDIRECTORY_STRUCT_VECTOR = vector/
 SUBDIRECTORY_STRUCT_LIST = list/
+SUBDIRECTORY_STRUCT_QUEUE = queue/
 
-SOURCES_LIST_STRUCT_VECTOR = ft_ptr_vec_init.c ft_ptr_vec_push.c ft_vec_init.c ft_vec_push.c ft_vec_string_push.c
-SOURCES_LIST_STRUCT_LIST = ft_lstdepth.c ft_lstadd_last.c ft_del.c
+SOURCES_LIST_STRUCT_LIST = ft_lstsortinsertion.c ft_lstdepth.c ft_lstadd_last.c ft_del.c 
+SOURCES_LIST_STRUCT_QUEUE = ft_item_create.c ft_item_destroy.c ft_queue_clean.c ft_queue_create.c ft_queue_destroy.c ft_queue_pop_back.c ft_queue_pop_front.c\
+ft_queue_push_back.c ft_queue_push_front.c ft_queue_is_empty.c
 
-SOURCES_STRUCT_VECTOR = $(addprefix $(SUBDIRECTORY_STRUCT_VECTOR), $(SOURCES_LIST_STRUCT_VECTOR))
 SOURCES_STRUCT_LIST = $(addprefix $(SUBDIRECTORY_STRUCT_LIST), $(SOURCES_LIST_STRUCT_LIST))
+SOURCES_STRUCT_QUEUE = $(addprefix $(SUBDIRECTORY_STRUCT_QUEUE), $(SOURCES_LIST_STRUCT_QUEUE))
 
-SOURCES_STRUCT = $(addprefix $(SOURCES_DIRECTORY_STRUCT), $(SOURCES_STRUCT_VECTOR) $(SOURCES_STRUCT_LIST))
+SOURCES_STRUCT = $(addprefix $(SOURCES_DIRECTORY_STRUCT), $(SOURCES_STRUCT_LIST) $(SOURCES_STRUCT_QUEUE))
 
 #RESULT SOURCES
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIBFT) $(SOURCES_GET_NEXT_LINE) $(SOURCES_PRINTF) $(SOURCES_STRUCT))

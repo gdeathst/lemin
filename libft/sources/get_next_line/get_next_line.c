@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 10:56:22 by gdeathst          #+#    #+#             */
-/*   Updated: 2020/10/22 23:43:23 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:05:37 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,71 +23,100 @@
 
 #include "get_next_line.h"
 
-static int			ft_separate(char *buf, char **line)
+/*
+** join-free takes in two strings and joins them, but frees the first argument
+** then returns the joined string.
+*/
+
+static char	*join_free(char *arr, char *buf)
 {
-	char			*tmp;
-	size_t			len;
+	char	*ret;
+	size_t	len;
 
-	if (ft_strchr(buf, NEXT_LINE))
-	{
-		ft_bzero(buf, BUFF_SIZE + 1);
-		len = 0;
-		while (*(*line + len) != NEXT_LINE && *(*line + len))
-			len++;
-		if ((tmp = ft_strnew(len)))
-		{
-			ft_memmove(tmp, *line, len);
-			*(tmp + len) = END_LINE;
-			ft_memmove(buf, *line + len + 1, ft_strlen(*line + len + 1));
-			ft_strdel(line);
-			*line = tmp;
-			return (SEPARATION_COMPLETE);
-		}
-		return (ERR);
-	}
-	ft_bzero(buf, BUFF_SIZE + 1);
-	return (EMPTY);
-}
-
-static int			ft_make_line(const int fd, char *buf, char **line)
-{
-	char			*tmp;
-	int				ret;
-
-	if (*buf == EMPTY)
-		if (read(fd, buf, BUFF_SIZE) == ERR)
-			return (ERR);
-	while (*buf)
-	{
-		tmp = *line;
-		if ((*line = ft_strjoin(*line, buf)) == EMPTY)
-			return (ERR);
-		ft_strdel(&tmp);
-		if ((ret = ft_separate(buf, line)))
-			return (ret);
-		if (read(fd, buf, BUFF_SIZE) == ERR)
-			return (ERR);
-	}
-	if (*line)
-		return (RD_COMPLETE);
-	return (EMPTY);
-}
-
-int					get_next_line(const int fd, char **line)
-{
-	static char		*stack[MAX_FILES + 1];
-	int				ret;
-
-	ret = 0;
-	if (line == NULL || fd < MIN_FILES || fd > MAX_FILES || BUFF_SIZE == EMPTY)
-		return (ERR);
-	if (stack[fd] == EMPTY)
-		if ((stack[fd] = ft_strnew(BUFF_SIZE)) == EMPTY)
-			return (ERR);
-	*line = NULL;
-	if ((ret = ft_make_line(fd, stack[fd], line)) == ERR)
-		return (ERR);
-	if (ret == EMPTY)
-		ft_strdel(&stack[fd]);
+	if (!arr || !buf)
+		return (NULL);
+	len = ft_strlen(arr) + ft_strlen(buf);
+	ret = ft_strnew(len);
+	if (ret == NULL)
+		return (NULL);
+	ft_strcpy(ret, arr);
+	ft_strcat(ret, buf);
+	free(arr);
 	return (ret);
+}
+
+/*
+** The first while loop goes through the current text in 'arr'. It then sets
+** the variable 'len' to the length from the start to a \n or \0. The first if
+** check if there is a \n in the line it read. If there is one, we set the \n
+** to a \0, add that line to *line, set tmp to everything after the new \0
+** frees the arr we sent through and then sets the arr to tmp. If theres
+** nothing left in arr (the first char is \0), it frees arr. Else is there is
+** no \n, it means its the last line and we add what every is left to *line
+** and free the arr.
+*/
+
+static int	add_line(char **arr, char **line)
+{
+	int		len;
+	char	*tmp;
+
+	len = 0;
+	while ((*arr)[len] != '\n' && (*arr)[len] != '\0')
+		len++;
+	if (ft_strchr(*arr, '\n') != NULL)
+	{
+		*(ft_strchr(*arr, '\n')) = '\0';
+		*line = ft_strsub(*arr, 0, len);
+		tmp = ft_strdup(ft_strchr(*arr, '\0') + 1);
+		free(*arr);
+		*arr = tmp;
+		if ((*arr)[0] == '\0')
+			ft_strdel(arr);
+	}
+	else
+	{
+		*line = ft_strdup(*arr);
+		ft_strdel(arr);
+	}
+	return (1);
+}
+
+/*
+** arr is a 2D array to keep the line and its fd. The first if check if the fd
+** is a negative number and if the line argument sent in isn't NULL. If they
+** are, it quits and returns -1. The while loop reads chars (BUFF_SIZE amount)
+** The if check if the static variable has been populated yet and if it hasn't
+** we duplicate buf into arr. Otherwise we call our join-free function to fill
+** the array. If it has a \n, it breaks. The last if checks if the ret (gotten
+** from reading) if a negative number in which case it will return a -1. If
+** ret is 0 or the arr[fd] is NULL it will return a 0 else it will return a 1.
+*/
+
+int	get_next_line(const int fd, char **line)
+{
+	int			ret;
+	static char	*arr[1024];
+	char		buf[BUFF_SIZE + 1];
+
+	if (fd < 0 || line == NULL)
+		return (-1);
+	ret = read(fd, buf, BUFF_SIZE);
+	while (ret > 0)
+	{
+		buf[ret] = '\0';
+		if (arr[fd] == NULL)
+			arr[fd] = ft_strdup(buf);
+		else
+			arr[fd] = join_free(arr[fd], buf);
+		if (ft_strchr(arr[fd], '\n'))
+			break ;
+		ret = read(fd, buf, BUFF_SIZE);
+	}
+	if (ret < 0)
+		return (-1);
+	else if (ret == 0 && arr[fd] == NULL)
+		return (0);
+	else
+		return (add_line(&arr[fd], line));
 }

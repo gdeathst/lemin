@@ -6,17 +6,18 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:34:44 by anonymous         #+#    #+#             */
-/*   Updated: 2021/01/31 14:40:59 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:44:14 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_getprogname(char **argv)
+char	*ft_getprogname(char **argv)
 {
-	char		*progname;
+	char	*progname;
 
-	if ((progname = ft_strrchr(*argv, '/')) == NULL)
+	progname = ft_strrchr(*argv, '/');
+	if (progname == NULL)
 		progname = *argv;
 	else
 		progname++;

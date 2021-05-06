@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_islower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 02:22:57 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/20 21:49:12 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 22:42:23 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 #include "libft.h"
 
-int		ft_islower(int c)
+int	ft_islower(int c)
 {
 	if (c >= 'a' && c <= 'z')
 		return (1);

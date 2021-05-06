@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonimnus <anonimnus@student.42.fr>        +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 18:43:32 by unicolle          #+#    #+#             */
-/*   Updated: 2020/10/20 21:54:14 by anonimnus        ###   ########.fr       */
+/*   Updated: 2021/04/28 20:28:15 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #include "libft.h"
 
-char			*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
 	intmax_t	i;
 
@@ -28,7 +28,7 @@ char			*ft_strrchr(const char *s, int c)
 	while (i >= 0)
 	{
 		if (s[i] == (char)c)
-			return (char*)(s + i);
+			return ((char *)(s + i));
 		i--;
 	}
 	return (NULL);
