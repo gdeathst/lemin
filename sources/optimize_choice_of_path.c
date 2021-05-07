@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 07:14:24 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/06 07:42:54 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 11:06:58 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	optimize_choice_of_path(t_room *start)
 			links[j++] = start->links[i];
 		i++;
 	}
+	arrange(links, size);
 	ft_memdel((void **)&(start->links));
 	start->links = links;
 }

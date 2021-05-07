@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:47:17 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/03 22:16:20 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 11:05:26 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ t_list	*get_links(t_list *description, t_list *rooms, t_map *map)
 		if (is_link(description->content))
 			link = wrap(get_link(description->content, rooms), LINK);
 		else
-			terminate("ERROR SMTH WRONG WITH LINKS");
+			terminate(ERROR);
 		ft_lstadd(&links, link);
 		description = description->next;
 	}
 	if (has_any_dublicates(links, map))
-		terminate("ERROR DUBLICATES");
+		terminate(ERROR);
 	return (links);
 }

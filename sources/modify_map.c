@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 20:53:06 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/06 05:54:59 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 12:18:42 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,44 +31,63 @@ static void	*get_link(t_room *room, t_room *copy)
 	return (link);
 }
 
-static void	redirect_links_to_copy(t_room *rm, t_room *cp, t_map *map)
+static void	split_rooms(t_map *map)
 {
-	t_list	*links;
-	t_link	*link;
+	t_list	*rooms;
+	t_list	*copy;
+	t_list	*link;
+	t_room	*room;
 
-	links = map->links;
-	while (links)
+	rooms = map->rooms;
+	while (rooms)
 	{
-		link = links->content;
-		if (link->from == map->end->content || link->to == map->end->content)
-			;
-		else if (link->from == rm && link->to->is_copy == 0)
-			link->from = cp;
-		else if (link->to == rm && link->from->is_copy == 0)
-			link->to = cp;
-		links = links->next;
+		room = rooms->content;
+		if (rooms->content_size == ROOM)
+		{
+			copy = wrap(get_copy(), COPY);
+			link = wrap(get_link(room, copy->content), LINK);
+			room->copy = copy->content;
+			ft_lstadd(&(map->links), link);
+			ft_lstadd(&(map->rooms), copy);
+		}
+		rooms = rooms->next;
+	}
+}
+
+static void	redirect_link(t_link *link, t_map *map, t_room *end)
+{
+	t_list	*add_link;
+
+	if (link->from == end)
+		link->to = link->to->copy;
+	else if (link->to == end)
+		link->from = link->from->copy;
+	else
+	{
+		add_link = wrap(get_link(link->from->copy, link->to), LINK);
+		link->to = link->to->copy;
+		ft_lstadd(&(map->links), add_link);
 	}
 }
 
 void	modify_map(t_map *map)
 {
-	t_list	*rooms;
-	t_list	*copy;
-	t_list	*room;
-	t_list	*link;
+	t_list	*links;
+	t_link	*link;
+	t_room	*start;
+	t_room	*end;
 
-	rooms = map->rooms;
-	while (rooms)
+	split_rooms(map);
+	links = map->links;
+	start = map->start->content;
+	end = map->end->content;
+	while (links)
 	{
-		room = rooms;
-		if (room->content_size == ROOM)
-		{
-			copy = wrap(get_copy(), COPY);
-			link = wrap(get_link(room->content, copy->content), LINK);
-			redirect_links_to_copy(room->content, copy->content, map);
-			ft_lstadd(&(map->links), link);
-			ft_lstadd(&(map->rooms), copy);
-		}
-		rooms = rooms->next;
+		link = links->content;
+		if (link->from == start || link->to == start)
+			;
+		else if (!link->from->is_copy && !link->to->is_copy)
+			redirect_link(link, map, end);
+		links = links->next;
 	}
 }

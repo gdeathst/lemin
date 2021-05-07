@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 03:13:39 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/05 09:56:09 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 12:12:17 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	*pop(t_queue *queue)
 	return (data);
 }
 
-static void	expand_free_heirs(t_queue *queue, t_room *rm)
+static void	expand_free_heirs(t_queue *queue, t_room *rm, t_room *start)
 {
 	int		i;
 	t_link	*link;
@@ -53,31 +53,37 @@ static void	expand_free_heirs(t_queue *queue, t_room *rm)
 	while (links[i])
 	{
 		link = links[i];
-		if (link->to_from != 1 && link->from->bfs.is_visited == 0)
-			push(link->from, rm, link, queue);
-		if (link->from_to != 1 && link->to->bfs.is_visited == 0)
-			push(link->to, rm, link, queue);
+		if ((rm->is_copy && get_next_room(link, rm)->copy != rm)
+			|| (!rm->is_copy && get_next_room(link, rm) == rm->copy)
+			|| (rm == start))
+		{
+			if (link->to_from != 1 && link->from->bfs.is_visited == 0)
+				push(link->from, rm, link, queue);
+			if (link->from_to != 1 && link->to->bfs.is_visited == 0)
+				push(link->to, rm, link, queue);
+		}
 		i++;
 	}
 }
 
 int	bfs(t_room *start, t_room *goal, t_list *rooms)
 {
-	int		ret;
 	t_queue	*queue;
 	t_room	*rm;
 
-	ret = 0;
 	reset_status_bfs(rooms);
 	queue = ft_queue_create();
 	push(start, NULL, NULL, queue);
-	while (!ft_queue_is_empty(queue) && ret == 0)
+	while (!ft_queue_is_empty(queue))
 	{
 		rm = pop(queue);
 		if (rm == goal)
-			ret = 1;
-		expand_free_heirs(queue, rm);
+		{
+			ft_queue_destroy(&queue);
+			return (1);
+		}
+		expand_free_heirs(queue, rm, start);
 	}
 	ft_queue_destroy(&queue);
-	return (ret);
+	return (0);
 }

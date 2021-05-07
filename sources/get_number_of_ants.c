@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 14:36:29 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/06 05:55:04 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 11:05:55 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	get_number_of_ants(t_list *description)
 
 	line = description->content;
 	if (!ft_isint(line))
-		terminate("ERROR NOT NUMBER");
+		terminate(ERROR);
 	nbr = ft_atoi(line);
 	if (!(nbr > 0))
-		terminate("ERROR LOW NUMBER");
+		terminate(ERROR);
 	return (nbr);
 }

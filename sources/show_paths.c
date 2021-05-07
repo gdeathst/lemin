@@ -6,13 +6,13 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 07:24:07 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/06 08:35:37 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 12:50:42 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void	print_queue(t_queue *queue)
+static void	print_queue(t_queue *queue, t_room *end)
 {
 	t_room	*rm;
 	int		size;
@@ -26,7 +26,7 @@ static void	print_queue(t_queue *queue)
 		size--;
 	}
 	if (queue->size)
-		printf("\n");
+		ft_printf("\n");
 }
 
 static void	make_move(t_queue *queue, t_map *map)
@@ -35,7 +35,7 @@ static void	make_move(t_queue *queue, t_map *map)
 	t_room	*rm;
 	t_room	*end;
 	int		nbr_ant;
-	
+
 	end = map->end->content;
 	size = queue->size;
 	while (size > 0)
@@ -64,8 +64,8 @@ static int	should_move_ant_by_this_path(int ants, t_room *start, t_link *link)
 	length = get_next_room(link, start)->path.length_of_way;
 	while (start->links[i] != link)
 	{
-		sum += length;
-		sum += sum - get_next_room(start->links[i], start)->path.length_of_way;
+		sum += length
+			- get_next_room(start->links[i], start)->path.length_of_way;
 		i++;
 	}
 	if (ants > sum)
@@ -87,7 +87,8 @@ static void	choose_path(t_queue *queue, t_map *map, t_room *start)
 		if (should_move_ant_by_this_path(map->number_of_ants, start, links[i]))
 		{
 			room = get_next_room(links[i], start);
-			room = room->path.next;
+			if (room->is_copy == 1)
+				room = room->path.next;
 			room->path.number_of_ant = nbr;
 			nbr++;
 			ft_queue_push_back(queue, room);
@@ -108,7 +109,7 @@ void	show_paths(t_map *map)
 	{
 		make_move(queue, map);
 		choose_path(queue, map, map->start->content);
-		print_queue(queue);
+		print_queue(queue, map->end->content);
 	}
 	ft_queue_destroy(&queue);
 }

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 18:30:04 by anonimnus         #+#    #+#             */
-/*   Updated: 2021/05/06 07:30:54 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 06:26:51 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ struct s_room
 {
 	char		*name;
 	int			is_copy;
+	t_room		*copy;
 	t_coord		coord;
 	t_link		**links;
 	t_path		path;

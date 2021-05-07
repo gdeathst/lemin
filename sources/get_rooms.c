@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 11:35:39 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/04 22:05:21 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/07 11:06:22 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ static t_room	*get_room(char *line)
 	room->coord.x = ft_atoi(ft_strtok(NULL, " "));
 	room->coord.y = ft_atoi(ft_strtok(NULL, " "));
 	if (room->name == NULL || is_correct_name(room->name) == 0)
-		terminate("ERROR NOT CORRECT NAME");
+		terminate(ERROR);
 	if (room->coord.x < 0 || room->coord.y < 0)
-		terminate("ERROR WRONG COORD");
+		terminate(ERROR);
+	room->copy = NULL;
 	ft_strdel(&str);
 	return (room);
 }
@@ -58,12 +59,12 @@ static t_list	*get_wrapped_special_room(t_list *description)
 
 	which_room = description->content;
 	if (ft_strequ(which_room, "##start") && start++ != 0)
-		terminate("ERROR TO MUCH STARTS");
+		terminate(ERROR);
 	if (ft_strequ(which_room, "##end") && end++ != 0)
-		terminate("ERROR TO MUCH ENDS");
+		terminate(ERROR);
 	description = description->next;
 	if (description == NULL || !is_room(description->content))
-		terminate("ERROR NO ROOM INFO FOR START OR END");
+		terminate(ERROR);
 	if (ft_strequ(which_room, "##start"))
 		lst = wrap(get_room(description->content), START);
 	else
@@ -116,11 +117,11 @@ t_list	*get_rooms(t_list *description)
 		else if (is_link(info))
 			break ;
 		else
-			terminate("ERROR SMTH WRONG INFO");
+			terminate(ERROR);
 		ft_lstadd(&rooms, to_add);
 		description = description->next;
 	}
 	if (has_any_dublicates(rooms))
-		terminate("ERROR DUBLICATES IN ROOMS");
+		terminate(ERROR);
 	return (rooms);
 }
