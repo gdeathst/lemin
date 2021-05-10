@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 19:39:41 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/07 11:05:08 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/09 01:16:47 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	edmonds_karp(t_room *start, t_room *end, t_list *rooms)
 	if (were_route_found == 0)
 		terminate(ERROR);
 	mark_way(start, end);
-	while (bfs(start, end, rooms))
+	while (bfs(start, end, rooms) != 0)
 		mark_way(start, end);
 }

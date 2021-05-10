@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 11:35:39 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/07 11:06:22 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/08 08:57:54 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static t_room	*get_room(char *line)
 		terminate(ERROR);
 	if (room->coord.x < 0 || room->coord.y < 0)
 		terminate(ERROR);
-	room->copy = NULL;
 	ft_strdel(&str);
 	return (room);
 }

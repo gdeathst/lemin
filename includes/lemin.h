@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 18:30:04 by anonimnus         #+#    #+#             */
-/*   Updated: 2021/05/07 06:26:51 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/09 00:40:46 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ struct s_link
 	t_room		*from;
 	int			from_to;
 	int			to_from;
-	int			weigth;
 };
 
 struct s_map
@@ -88,7 +87,8 @@ struct s_map
 /*
 ** MAIN FUNCTION
 */
-t_list		*get_map_description(void);
+t_list		*get_description(void);
+t_list		*get_compressed_description(t_list *description);
 t_map		*get_map(t_list	*description);
 int			get_number_of_ants(t_list *description);
 t_list		*get_rooms(t_list *description);
@@ -113,7 +113,8 @@ int			is_end(char *line);
 **	FREE_MEMMORY
 */
 void		destroy_map(t_map *map);
-void		destoy_description(t_list *description);
+void		destroy_description(t_list *description);
+void		destroy_compressed_description(t_list *comressed_description);
 /*
 **	UTILS
 */

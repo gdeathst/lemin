@@ -6,13 +6,13 @@
 #    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/24 00:51:31 by anonimnus         #+#    #+#              #
-#    Updated: 2021/05/07 11:34:28 by anonymous        ###   ########.fr        #
+#    Updated: 2021/05/10 11:26:26 by anonymous        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in 
 CC = gcc
-#FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 
 #STATIC LIBRARY LIBFT
 LIBFT = libft/libft.a
@@ -31,7 +31,8 @@ INCLUDE_PROJECT_HEADERS = -I $(PATH_TO_PROJECT_HEADERS)
 #SOURCES PROJECT
 LIST_PROJECT_SOURCES = 	main.c\
 						legend.c\
-						get_map_description.c\
+						get_description.c\
+						get_compressed_description.c\
 						get_map.c\
 						get_number_of_ants.c\
 						get_rooms.c\

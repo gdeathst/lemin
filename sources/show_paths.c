@@ -6,13 +6,13 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 07:24:07 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/07 12:50:42 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/10 11:27:11 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-static void	print_queue(t_queue *queue, t_room *end)
+static void	print_queue(t_queue *queue)
 {
 	t_room	*rm;
 	int		size;
@@ -21,12 +21,13 @@ static void	print_queue(t_queue *queue, t_room *end)
 	while (size)
 	{
 		rm = ft_queue_pop_front(queue);
-		ft_printf("L%d-%s ", rm->path.number_of_ant, rm->name);
+		ft_printf("L%d-%s", rm->path.number_of_ant, rm->name);
 		ft_queue_push_back(queue, rm);
 		size--;
+		if (size)
+			ft_printf(" ");
 	}
-	if (queue->size)
-		ft_printf("\n");
+	ft_printf("\n");
 }
 
 static void	make_move(t_queue *queue, t_map *map)
@@ -42,14 +43,17 @@ static void	make_move(t_queue *queue, t_map *map)
 	{
 		rm = ft_queue_pop_front(queue);
 		nbr_ant = rm->path.number_of_ant;
-		rm->path.number_of_ant = 0;
 		rm = rm->path.next;
-		if (rm->is_copy == 1)
+		while (rm->is_copy == 1)
 			rm = rm->path.next;
 		rm->path.number_of_ant = nbr_ant;
-		if (rm != end)
-			ft_queue_push_back(queue, rm);
 		size--;
+		if (rm == end && size)
+			ft_printf("L%d-%s ", rm->path.number_of_ant, rm->name);
+		else if (rm == end)
+			ft_printf("L%d-%s", rm->path.number_of_ant, rm->name);
+		else
+			ft_queue_push_back(queue, rm);
 	}
 }
 
@@ -87,8 +91,6 @@ static void	choose_path(t_queue *queue, t_map *map, t_room *start)
 		if (should_move_ant_by_this_path(map->number_of_ants, start, links[i]))
 		{
 			room = get_next_room(links[i], start);
-			if (room->is_copy == 1)
-				room = room->path.next;
 			room->path.number_of_ant = nbr;
 			nbr++;
 			ft_queue_push_back(queue, room);
@@ -109,7 +111,7 @@ void	show_paths(t_map *map)
 	{
 		make_move(queue, map);
 		choose_path(queue, map, map->start->content);
-		print_queue(queue, map->end->content);
+		print_queue(queue);
 	}
 	ft_queue_destroy(&queue);
 }

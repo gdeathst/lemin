@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:47:17 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/07 11:05:26 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/08 08:39:05 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static t_link	*get_link(char *line, t_list *rooms)
 	link = (t_link *)ememalloc(sizeof(t_link));
 	link->from = room1->content;
 	link->to = room2->content;
+	link->from_to = 0;
+	link->to_from = 0;
 	ft_strdel(&names);
 	return (link);
 }

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:05:56 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/06 05:59:11 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/09 00:40:50 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,19 @@ void	destroy_map(t_map *map)
 	ft_memdel((void **)&map);
 }
 
-void	destoy_description(t_list *description)
+void	destroy_compressed_description(t_list *compressed_description)
+{
+	t_list	*next;
+
+	while (compressed_description)
+	{
+		next = compressed_description->next;
+		ft_memdel((void **)&compressed_description);
+		compressed_description = next;
+	}
+}
+
+void	destroy_description(t_list *description)
 {
 	ft_lstdel(&description, &delete);
 }

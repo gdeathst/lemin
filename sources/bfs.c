@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 03:13:39 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/07 12:12:17 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/10 12:31:58 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,14 @@ static void	expand_free_heirs(t_queue *queue, t_room *rm, t_room *start)
 	while (links[i])
 	{
 		link = links[i];
-		if ((rm->is_copy && get_next_room(link, rm)->copy != rm)
-			|| (!rm->is_copy && get_next_room(link, rm) == rm->copy)
-			|| (rm == start))
-		{
-			if (link->to_from != 1 && link->from->bfs.is_visited == 0)
-				push(link->from, rm, link, queue);
-			if (link->from_to != 1 && link->to->bfs.is_visited == 0)
-				push(link->to, rm, link, queue);
-		}
+		if (link->from_to == 0 && link->to->bfs.is_visited == 0 && ((link->from == start || link->to == link->from->copy) || (link->to->is_copy == 0 && link->from->is_copy)))
+			push(link->to, rm, link, queue);
+		if (link->to_from == 0 && link->from->bfs.is_visited == 0 && ((link->to == start || link->from == link->to->copy) || (link->from->is_copy == 0 && link->to->is_copy)))
+			push(link->from, rm, link, queue);
+		if (link->from_to == -1 && link->to->bfs.is_visited == 0 && ((link->to->copy == link->from) || (link->from->is_copy == 0 && link->from->copy != link->to)))
+			push(link->to, rm, link, queue);
+		if (link->to_from == -1 && link->from->bfs.is_visited == 0 && ((link->to->copy == link->from) || (link->from->is_copy == 0 && link->from->copy != link->to)))
+			push(link->from, rm, link, queue);
 		i++;
 	}
 }
