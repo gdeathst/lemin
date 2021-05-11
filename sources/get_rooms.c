@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 11:35:39 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/08 08:57:54 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/11 06:29:17 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_correct_name(char *line)
 {
-	if (*line == 'L' || *line == '#')
+	if (*line == 'L')
 		return (0);
 	while (*line)
 	{

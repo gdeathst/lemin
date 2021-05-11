@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 02:20:56 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/07 11:05:45 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/11 17:31:08 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_map	*get_map(t_list *description)
 	map->end = find_room(map->rooms, "", END);
 	if (map->start == NULL || map->end == NULL)
 		terminate(ERROR);
-	map->links = get_links(description->next, map->rooms, map);
+	map->links = get_links(description->next, map->rooms);
 	if (map->links == NULL)
 		terminate(ERROR);
 	return (map);

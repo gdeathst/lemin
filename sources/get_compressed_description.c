@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 15:17:03 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/10 12:18:29 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/11 17:35:53 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,15 @@ t_list	*get_compressed_description(t_list *original_description)
 	{
 		line = original_description->content;
 		original_description = original_description->next;
-		if (is_room(line) || is_link(line) || is_end(line) || is_start(line)
-			|| ft_isint(line))
+		if (is_comment(line) || (ft_strequ(line, "##")
+				&& (is_end(line) || is_start(line))))
+			;
+		else if ((is_end(line) || is_start(line))
+			&& !valid_start_or_end_room(original_description))
+			terminate(ERROR);
+		else if (is_room(line) || is_link(line) || is_end(line)
+			|| is_start(line) || ft_isint(line))
 		{
-			if ((is_end(line) || is_start(line))
-				&& !valid_start_or_end_room(original_description))
-				terminate(ERROR);
 			path_desctiption = wrap(line, DESCRIPTION);
 			add_path_description(&description, path_desctiption);
 		}

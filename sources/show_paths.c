@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 07:24:07 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/10 11:27:11 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/11 17:10:30 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ static void	make_move(t_queue *queue, t_map *map)
 			rm = rm->path.next;
 		rm->path.number_of_ant = nbr_ant;
 		size--;
-		if (rm == end && size)
+		if (rm == end)
 			ft_printf("L%d-%s ", rm->path.number_of_ant, rm->name);
-		else if (rm == end)
-			ft_printf("L%d-%s", rm->path.number_of_ant, rm->name);
 		else
 			ft_queue_push_back(queue, rm);
 	}
@@ -93,7 +91,10 @@ static void	choose_path(t_queue *queue, t_map *map, t_room *start)
 			room = get_next_room(links[i], start);
 			room->path.number_of_ant = nbr;
 			nbr++;
-			ft_queue_push_back(queue, room);
+			if (room == map->end->content)
+				ft_printf("L%d-%s ", room->path.number_of_ant, room->name);
+			else
+				ft_queue_push_back(queue, room);
 			map->number_of_ants--;
 		}
 		else

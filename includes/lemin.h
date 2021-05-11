@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 18:30:04 by anonimnus         #+#    #+#             */
-/*   Updated: 2021/05/09 00:40:46 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/11 06:33:05 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_list		*get_compressed_description(t_list *description);
 t_map		*get_map(t_list	*description);
 int			get_number_of_ants(t_list *description);
 t_list		*get_rooms(t_list *description);
-t_list		*get_links(t_list *description, t_list *rooms, t_map *map);
+t_list		*get_links(t_list *description, t_list *rooms);
 void		modify_map(t_map *map);
 void		route_search_optimization(t_map *map);
 int			bfs(t_room *start, t_room *goal, t_list *rooms);

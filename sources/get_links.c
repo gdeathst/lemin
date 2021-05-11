@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:47:17 by anonymous         #+#    #+#             */
-/*   Updated: 2021/05/08 08:39:05 by anonymous        ###   ########.fr       */
+/*   Updated: 2021/05/11 17:29:24 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ static t_link	*get_link(char *line, t_list *rooms)
 	link = (t_link *)ememalloc(sizeof(t_link));
 	link->from = room1->content;
 	link->to = room2->content;
-	link->from_to = 0;
-	link->to_from = 0;
 	ft_strdel(&names);
 	return (link);
 }
 
-static int	has_any_dublicates(t_list *links, t_map *map)
+static int	has_any_dublicates(t_list *links)
 {
 	t_list		*tmp;
 	t_link		*org;
@@ -46,10 +44,7 @@ static int	has_any_dublicates(t_list *links, t_map *map)
 	while (links)
 	{
 		org = links->content;
-		if ((org->from == org->to) || ((org->from == map->start->content
-					&& org->to == map->end->content)
-				|| (org->to == map->start->content
-					&& org->from == map->end->content)))
+		if (org->from == org->to)
 			terminate(ERROR);
 		tmp = links->next;
 		while (tmp)
@@ -66,7 +61,7 @@ static int	has_any_dublicates(t_list *links, t_map *map)
 	return (0);
 }
 
-t_list	*get_links(t_list *description, t_list *rooms, t_map *map)
+t_list	*get_links(t_list *description, t_list *rooms)
 {
 	t_list	*links;
 	t_list	*link;
@@ -87,7 +82,7 @@ t_list	*get_links(t_list *description, t_list *rooms, t_map *map)
 		ft_lstadd(&links, link);
 		description = description->next;
 	}
-	if (has_any_dublicates(links, map))
+	if (has_any_dublicates(links))
 		terminate(ERROR);
 	return (links);
 }
