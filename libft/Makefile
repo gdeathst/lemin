@@ -6,13 +6,13 @@
 #    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 21:33:58 by unicolle          #+#    #+#              #
-#    Updated: 2021/05/04 17:53:39 by anonymous        ###   ########.fr        #
+#    Updated: 2021/05/11 17:41:46 by anonymous        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = gcc
-FLAGS = -O -Wall -W -Werror -Wextra
+FLAGS = -Wall -W -Werror -Wextra
 INCLUDES_DIRECTORY = ./includes/
 INCLUDE_HEADERS = -I ./$(INCLUDES_DIRECTORY)
 INCLUDES_LIST = ft_printf.h get_next_line.h libft.h
