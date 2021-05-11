@@ -6,13 +6,13 @@
 #    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/24 00:51:31 by anonimnus         #+#    #+#              #
-#    Updated: 2021/05/11 09:09:13 by anonymous        ###   ########.fr        #
+#    Updated: 2021/05/11 17:42:47 by anonymous        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in 
 CC = gcc
-#FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 
 #STATIC LIBRARY LIBFT
 LIBFT = libft/libft.a
